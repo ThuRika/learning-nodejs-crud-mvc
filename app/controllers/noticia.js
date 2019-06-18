@@ -36,7 +36,31 @@ module.exports.getById = function(application, req, res){
 	console.log('Controller noticia. Operação getById')
 	/* TODO
 	Implementar operação getById
-	*/		
+	*/
+	var connection = application.config.dbConnection.connection;
+	var noticiaDAO = application.app.models.noticia.noticiaDao;
+
+	noticiaDAO.findById(connection, 
+		/* Esta é a nossa função de callback */
+		function(error, result){
+			header = {
+				'noticia_id'	: '#', 
+				'titulo' 		: 'Título',
+				'data' 			: 'Data',
+				'conteudo' 		: 'Conteúdo'
+			};
+			operations = {
+				'field'		: 'noticia_id',
+				'model'		: 'noticia',
+				'names'		: {
+					'show'		: 'Show',
+					'edit'		: 'Edit',
+					'delete' 	: 'Delete'					
+				}
+			};				
+			res.json( { header : header, data : result, operations : operations } );			
+		}
+	)		
 }
 
 
@@ -59,4 +83,5 @@ module.exports.delete = function(application, req, res){
 	/* TODO
 	Implementar operação delete
 	*/
+
 }

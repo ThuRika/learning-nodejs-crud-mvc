@@ -44,6 +44,8 @@ $ (document).ready(function() {
   }).done(function(json){
     console.log(json);
     makeTableHead('table_noticia',json.header,json.operations);
+    makeTableBody('table_noticia',json.data,json.operations);
+
   })
 })
 
